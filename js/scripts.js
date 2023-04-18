@@ -1,6 +1,5 @@
 /*
  * This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
- * Copyright (c) 2022 Jay Hill
  */
 
 window.onload = function() {
