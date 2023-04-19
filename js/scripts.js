@@ -19,8 +19,8 @@ window.onload = function() {
   };
 
   var messages = [
-    '💻 Oh hey there!',
-    "I'm RoseSecurity 🌹",
+    '🤙 Oh hey there!',
+    "My name is Michael 💾",
     "I'm a Red Teamer who enjoys coding, automating, and breaking things",
     'Feel free to reach out on Linkedin <br> <a href="https://linkedin.com/in/rosesecurity">linkedin.com/in/rosesecurity</a>',
     'Check out my projects on Github <br> <a href="http://github.com/rosesecurity">github.com/rosesecurity</a>',
