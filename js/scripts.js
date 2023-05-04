@@ -24,7 +24,7 @@ window.onload = function() {
     "I'm a Red Teamer who enjoys coding, automating, and breaking things",
     'Feel free to reach out on Linkedin <br> <a href="https://linkedin.com/in/rosesecurity">linkedin.com/in/rosesecurity</a>',
     'Check out my projects on Github <br> <a href="http://github.com/rosesecurity">github.com/rosesecurity</a>',
-    'Catch my security research on my blog <br> <a href="https://medium.com/@RoseSecurity">rosesecurity.medium.com</a>',
+    'Catch my security research on my blog <br> <a href="https://dev.to/rosesecurity"</a>',
 
 
   
