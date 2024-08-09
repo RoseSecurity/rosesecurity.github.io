@@ -6,7 +6,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   url: 'https://rosesecurity.dev',
-  baseUrl: '/blog',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   organizationName: 'rosesecurity',
