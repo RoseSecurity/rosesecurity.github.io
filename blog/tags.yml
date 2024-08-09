@@ -1,0 +1,9 @@
+cloud:
+  label: 'Cloud'
+  permalink: '/cloud'
+  description: 'Blog posts related to cloud computing'
+
+cybersecurity:
+  label: 'Cybersecurity'
+  permalink: '/cybersecurity'
+  description: 'Blog posts related to cybersecurity'
