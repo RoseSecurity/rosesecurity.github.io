@@ -6,7 +6,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   url: 'https://rosesecurity.dev',
-  baseUrl: '/',
+  baseUrl: '/blog',
 
   // GitHub pages deployment config.
   organizationName: 'rosesecurity',
@@ -28,7 +28,7 @@ const config = {
       ({
         docs: false,
         blog: {
-          routeBasePath: '/',
+          routeBasePath: '/blog',
           showReadingTime: true,
           editUrl:
             'https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=rosesecurity/rosesecurity.github.io&skip_quickstart=true',
@@ -77,7 +77,7 @@ const config = {
               },
               {
                 label: 'LinkedIn',
-                href: 'https://LinkedIn.com/rosesecurity',
+                href: 'https://linkedin.com/in/rosesecurity',
               },
               {
                 label: 'Stack Overflow',
