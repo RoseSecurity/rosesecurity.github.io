@@ -57,7 +57,6 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/rosesecurity',
             label: 'GitHub',
