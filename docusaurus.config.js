@@ -28,7 +28,7 @@ const config = {
       ({
         docs: false,
         blog: {
-          routeBasePath: '/blog',
+          routeBasePath: '/',
           showReadingTime: true,
           editUrl:
             'https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=rosesecurity/rosesecurity.github.io&skip_quickstart=true',
