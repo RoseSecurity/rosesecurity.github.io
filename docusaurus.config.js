@@ -59,7 +59,7 @@ const config = {
         items: [
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://rosesecurity.dev',
+            href: 'https://github.com/rosesecurity',
             label: 'GitHub',
             position: 'right',
           },
@@ -77,7 +77,7 @@ const config = {
               },
               {
                 label: 'LinkedIn',
-                href: 'https://twitter.com/rosesecurity',
+                href: 'https://LinkedIn.com/rosesecurity',
               },
               {
                 label: 'Stack Overflow',
@@ -94,7 +94,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/rosesecurity/rosesecurity.github.io',
+                href: 'https://github.com/rosesecurity',
               },
             ],
           },
