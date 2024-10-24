@@ -1,0 +1,22 @@
+{
+  "permalink": "/blog/2024/07/29/the-future-of-terraform-visualizations",
+  "editUrl": "https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=rosesecurity/rosesecurity.github.io&skip_quickstart=true/blog/2024-07-29-the-future-of-terraform-visualizations.md",
+  "source": "@site/blog/2024-07-29-the-future-of-terraform-visualizations.md",
+  "title": "The Future of Terraform Visualizations",
+  "description": "When I set out to write Terramaid, a tool that transforms Terraform configurations into visualizations using Mermaid diagrams, I didn't fully grasp the niche problem I aimed to tackle or the obstacles ahead. My goals were to improve my Go skills, contribute to the cloud tooling ecosystem, and have fun. The weekend after releasing the tool, I was amazed by the overwhelming support, inquiries, and feature requests. Although I have contributed various tools and knowledge bases to the cybersecurity community over the years, the support for Terramaid was unmatched. I began to think I was really onto something. However, I have always been more of an engineer than a visionary. To paraphrase Linus Torvalds, I focus on fixing the potholes in front of me rather than dreaming of going to the moon. Developing Terramaid has forced me to step back, look at the bigger picture of how we can drive the next generation of Terraform visualizations, and start building.",
+  "date": "2024-07-29T00:00:00.000Z",
+  "tags": [],
+  "readingTime": 4.385,
+  "hasTruncateMarker": false,
+  "authors": [],
+  "frontMatter": {},
+  "unlisted": false,
+  "prevItem": {
+    "title": "Homegrown Honeypots: Simulating a Water Control System in my Home Office",
+    "permalink": "/blog/2024/08/28/homegrown-honeypots"
+  },
+  "nextItem": {
+    "title": "My Neovim Note-taking Workflow",
+    "permalink": "/blog/2024/07/26/my-vim-note-taking-workflow"
+  }
+}

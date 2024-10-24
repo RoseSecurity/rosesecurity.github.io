@@ -1,0 +1,18 @@
+{
+  "permalink": "/blog/2024/06/28/infrastructure-essentials-part-1",
+  "editUrl": "https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=rosesecurity/rosesecurity.github.io&skip_quickstart=true/blog/2024-06-28-infrastructure-essentials-part-1.md",
+  "source": "@site/blog/2024-06-28-infrastructure-essentials-part-1.md",
+  "title": "Infrastructure Essentials Part 1: A Terraform Recipe for Success",
+  "description": "From Home Cooking to Restaurant Scale",
+  "date": "2024-06-28T00:00:00.000Z",
+  "tags": [],
+  "readingTime": 4.24,
+  "hasTruncateMarker": false,
+  "authors": [],
+  "frontMatter": {},
+  "unlisted": false,
+  "prevItem": {
+    "title": "Crafting Malicious Pluggable Authentication Modules for Persistence, Privilege Escalation, and Lateral Movement",
+    "permalink": "/blog/2024/07/25/crafting-malicious-pluggable-authentication-modules"
+  }
+}

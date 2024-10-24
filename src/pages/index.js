@@ -1,42 +1,38 @@
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from 'react';
 import Layout from '@theme/Layout';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Link from '@docusaurus/Link';
+import '../css/landing-page.css';
 
-import Heading from '@theme/Heading';
-import styles from './index.module.css';
+function Home() {
+  const context = useDocusaurusContext();
+  const { siteConfig = {} } = context;
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
+    <div className="landing-page">
+      <Layout title={`Welcome to ${siteConfig.title}`} description="A blog about development, security, and other nerdy things.">
+        <header className="hero hero--full-height">
+          <div className="intro">
+            <h1>My Code & Cloud Chronicles</h1>
+            <img 
+              src="/img/rosesecurity.gif" 
+              alt="RoseSecurity GIF" 
+              style={{ width: '70%', height: 'auto', marginTop: '20px' }} 
+            />
+          </div>
+          <div className="hero__cta" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+            <Link to="/blog" className="button button--lg button--primary">
+              <p>Read the Blog</p>
+            </Link>
+            <Link to="https://www.linkedin.com/in/rosesecurity/" className="button button--lg button--primary">
+              <p>Connect with Me</p>
+            </Link>
+          </div>
+        </header>
+      </Layout>
+    </div>
   );
 }
 
-export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
-    </Layout>
-  );
-}
+export default Home;
+

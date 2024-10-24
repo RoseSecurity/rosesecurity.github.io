@@ -1,0 +1,22 @@
+{
+  "permalink": "/blog/2024/07/25/crafting-malicious-pluggable-authentication-modules",
+  "editUrl": "https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=rosesecurity/rosesecurity.github.io&skip_quickstart=true/blog/2024-07-25-crafting-malicious-pluggable-authentication-modules.md",
+  "source": "@site/blog/2024-07-25-crafting-malicious-pluggable-authentication-modules.md",
+  "title": "Crafting Malicious Pluggable Authentication Modules for Persistence, Privilege Escalation, and Lateral Movement",
+  "description": "Synopsis",
+  "date": "2024-07-25T00:00:00.000Z",
+  "tags": [],
+  "readingTime": 5.705,
+  "hasTruncateMarker": false,
+  "authors": [],
+  "frontMatter": {},
+  "unlisted": false,
+  "prevItem": {
+    "title": "My Neovim Note-taking Workflow",
+    "permalink": "/blog/2024/07/26/my-vim-note-taking-workflow"
+  },
+  "nextItem": {
+    "title": "Infrastructure Essentials Part 1: A Terraform Recipe for Success",
+    "permalink": "/blog/2024/06/28/infrastructure-essentials-part-1"
+  }
+}

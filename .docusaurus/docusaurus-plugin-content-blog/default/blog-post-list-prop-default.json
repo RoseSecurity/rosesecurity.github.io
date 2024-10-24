@@ -1,0 +1,30 @@
+{
+  "title": "Recent posts",
+  "items": [
+    {
+      "title": "From Source to System: Packaging and Delivering Tools to Debian-based Distros",
+      "permalink": "/blog/2024/09/15/from-source-to-system-on-debian",
+      "unlisted": false
+    },
+    {
+      "title": "Homegrown Honeypots: Simulating a Water Control System in my Home Office",
+      "permalink": "/blog/2024/08/28/homegrown-honeypots",
+      "unlisted": false
+    },
+    {
+      "title": "The Future of Terraform Visualizations",
+      "permalink": "/blog/2024/07/29/the-future-of-terraform-visualizations",
+      "unlisted": false
+    },
+    {
+      "title": "My Neovim Note-taking Workflow",
+      "permalink": "/blog/2024/07/26/my-vim-note-taking-workflow",
+      "unlisted": false
+    },
+    {
+      "title": "Crafting Malicious Pluggable Authentication Modules for Persistence, Privilege Escalation, and Lateral Movement",
+      "permalink": "/blog/2024/07/25/crafting-malicious-pluggable-authentication-modules",
+      "unlisted": false
+    }
+  ]
+}
