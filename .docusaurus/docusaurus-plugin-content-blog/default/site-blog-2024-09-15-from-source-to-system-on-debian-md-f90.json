@@ -1,0 +1,18 @@
+{
+  "permalink": "/blog/2024/09/15/from-source-to-system-on-debian",
+  "editUrl": "https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=rosesecurity/rosesecurity.github.io&skip_quickstart=true/blog/2024-09-15-from-source-to-system-on-debian.md",
+  "source": "@site/blog/2024-09-15-from-source-to-system-on-debian.md",
+  "title": "From Source to System: Packaging and Delivering Tools to Debian-based Distros",
+  "description": "Introduction",
+  "date": "2024-09-15T00:00:00.000Z",
+  "tags": [],
+  "readingTime": 5.88,
+  "hasTruncateMarker": false,
+  "authors": [],
+  "frontMatter": {},
+  "unlisted": false,
+  "nextItem": {
+    "title": "Homegrown Honeypots: Simulating a Water Control System in my Home Office",
+    "permalink": "/blog/2024/08/28/homegrown-honeypots"
+  }
+}
