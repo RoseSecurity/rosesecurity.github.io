@@ -1,30 +1,38 @@
-<h1 align="center">Terraform Proverbs</h1>
+# Terraform Proverbs
 
-<p align="center">
-  <img width="40%" height=40% src="../static/img/terraform-logo.png">
-</p>
+![terraform_logo](../static/img/terraform-logo.png)
 
-<p align="center">
-  <em>Simple, Clear, Maintainable</em>
-</p>
+_Simple, Clear, Maintainable_
 
 ---
 
-<p align="center">
-  Clear is better than clever.<br>
-  Version everything.<br>
-  Modules should be reusable, not rigid.<br>
-  Outputs are for sharing.<br>
-  Tags are free; use them liberally.<br>
-  Count versus for_each is essential.<br>
-  Descriptions are for users.<br>
-  Use positive variable names to avoid double negatives.<br>
-  Null is not the same as nothing.<br>
-  Prefer a single object over many related variables.<br>
-  Terraform is declarative; trust it to converge.<br>
-  Never output secrets.<br>
-  Upgrade deliberately, not impulsively.<br>
-  Name with underscores, not dashes.<br>
-  Using locals makes code descriptive and maintainable.
-</p>
+Clear is better than clever.
+
+Version everything.
+
+Modules should be reusable, not rigid.
+
+Outputs are for sharing.
+
+Tags are free; use them liberally.
+
+Count versus for_each is essential.
+
+Descriptions are for users.
+
+Use positive variable names to avoid double negatives.
+
+Null is not the same as nothing.
+
+Prefer a single object over many related variables.
+
+Terraform is declarative; trust it to converge.
+
+Never output secrets.
+
+Upgrade deliberately, not impulsively.
+
+Name with underscores, not dashes.
+
+Using locals makes code descriptive and maintainable.
 
