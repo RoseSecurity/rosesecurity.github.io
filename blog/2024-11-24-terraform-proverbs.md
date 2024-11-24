@@ -1,5 +1,4 @@
-
-<div align="center">
+<p style="text-align:center;">
 
 # Terraform Proverbs
 
@@ -23,5 +22,4 @@ Upgrade deliberately, not impulsively.
 Name with underscores, not dashes.
 Using locals makes code descriptive and maintainable.
 
-</div>
-
+</p>
