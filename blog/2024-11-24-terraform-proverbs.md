@@ -2,7 +2,7 @@
 
 ![terraform_logo](../static/img/terraform-logo.png)
 
-_Simple, Clear, Maintainable_
+## _Simple, Clear, Maintainable_
 
 ---
 
