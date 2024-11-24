@@ -1,9 +1,7 @@
-<p align="center">
-  <img width="60%" src="../static/img/terraform-logo.png">
-</p>
+<h1 align="center">Terraform Proverbs</h1>
 
 <p align="center">
-  <strong>Terraform Proverbs</strong>
+  <img width="60%" height=60% src="../static/img/terraform-logo.png">
 </p>
 
 <p align="center">
