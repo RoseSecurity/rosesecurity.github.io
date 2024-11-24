@@ -1,12 +1,14 @@
 <h1 align="center">Terraform Proverbs</h1>
 
 <p align="center">
-  <img width="60%" height=60% src="../static/img/terraform-logo.png">
+  <img width="40%" height=40% src="../static/img/terraform-logo.png">
 </p>
 
 <p align="center">
   <em>Simple, Clear, Maintainable</em>
 </p>
+
+---
 
 <p align="center">
   Clear is better than clever.<br>
