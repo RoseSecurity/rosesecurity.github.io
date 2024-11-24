@@ -1,4 +1,4 @@
-<h1 align="center">Terraform Proverbs</h1>
+# Terraform Proverbs
 
 <p align="center">
   <img width="40%" height=40% src="../static/img/terraform-logo.png">
