@@ -163,6 +163,71 @@ Unpacking terramaid (1.12.0) ...
 Setting up terramaid (1.12.0) ...
 ```
 
-With Terramaid downloaded, we are ready to go! The only thing left to do is automate this process using GitHub Actions for future builds and releases, which I will probably cover in an upcoming blog post.
+## Automating with GitHub Actions
+
+To automate this process, we can use GitHub Actions coupled with Goreleaser and Cloudsmith's CLI tooling to build and push artifacts to Cloudsmith. In the following workflow, we build and release the CLI tooling before pushing to Cloudsmith: 
+
+```yaml
+jobs:
+  build:
+    name: "Build CLI and Attach to GitHub Release"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Setup Go
+      - name: "Setup Go"
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      # Print Go version
+      - run: go version
+
+      # Build and release
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          version: latest
+          args: release --parallelism 2 --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Get Debian Package Names
+        id: deb_package
+        run: |
+          echo "ARM_PACKAGE=$(find dist/ -name '*arm64.deb' | head -n 1)" >> $GITHUB_ENV
+          echo "AMD_PACKAGE=$(find dist/ -name '*amd64.deb' | head -n 1)" >> $GITHUB_ENV
+
+      # Push the Debian package to Cloudsmith
+      - name: Push Debian ARM package to Cloudsmith
+        id: push_arm
+        uses: cloudsmith-io/action@master
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: "push"
+          format: "deb"
+          owner: "rosesecurity"
+          repo: "kuzco"
+          distro: "any-distro"
+          release: "any-version"
+          file: ${{ env.ARM_PACKAGE }}
+
+      - name: Push Debian AMD package to Cloudsmith
+        id: push_amd
+        uses: cloudsmith-io/action@master
+        with:
+          api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
+          command: "push"
+          format: "deb"
+          owner: "rosesecurity"
+          repo: "kuzco"
+          distro: "any-distro"
+          release: "any-version"
+          file: ${{ env.AMD_PACKAGE }}
+```
 
 I hope this was informative for anyone looking to develop and distribute a tool to Debian systems. If you're interested in my work and would like to see more, feel free to check out my [GitHub](https://github.com/RoseSecurity) or reach out on my [LinkedIn](https://www.linkedin.com/in/rosesecurity/). I love empowering engineers to build cool things, so never hesitate to reach out with questions or thoughts. Let's build some stuff!
+
