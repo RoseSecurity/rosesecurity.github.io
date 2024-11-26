@@ -16,7 +16,7 @@ Outputs are for sharing.
 
 Tags are free; use them liberally.
 
-Count versus for_each is essential.
+Understanding count versus for_each is essential.
 
 Descriptions are for users.
 
