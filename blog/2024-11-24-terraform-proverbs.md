@@ -12,6 +12,10 @@ Version everything.
 
 Modules should be reusable, not rigid.
 
+State is a liability; manage it wisely.
+
+Every apply should be predictable.
+
 Outputs are for sharing.
 
 Tags are free; use them liberally.
