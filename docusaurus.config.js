@@ -28,6 +28,8 @@ const config = {
       ({
         docs: false,
         blog: {
+          blogSidebarTitle: 'All Posts',
+          blogSidebarCount: 'ALL',
           routeBasePath: '/blog',
           showReadingTime: true,
           editUrl:
