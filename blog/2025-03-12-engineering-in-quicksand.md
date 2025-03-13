@@ -4,7 +4,7 @@ Welcome to part two of my microblog series on the overlooked killers of engineer
 
 Today, I’m tackling another silent killer: toil. It’s the invisible weight dragging teams down, forcing engineers to maintain instead of build. While some toil is inevitable, too much of it suffocates innovation and drives attrition. Let’s talk about how it happens—and how to stop it.
 
-## When Toil Was Invented
+## The Birth of Toil
 
 ---
 
