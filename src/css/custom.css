@@ -87,7 +87,6 @@ div.atmos__effect::before, html[data-theme='dark'] div.navbar__logo::before {
 
 body {
     background-color: var(--ifm-background-color);
-    background-image: url("/static/img/rosesecurity.png");
     background-position: 98% 98%;
     background-repeat: no-repeat;
     background-size: 15em;
