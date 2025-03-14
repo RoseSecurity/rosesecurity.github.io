@@ -85,10 +85,6 @@ div.atmos__effect::before, html[data-theme='dark'] div.navbar__logo::before {
     background-color: yellow;
 }
 
-html[data-theme='dark'] body {
-    background-image: url("/static/img/rosesecurity_transparent.png");
-}
-
 body {
     background-color: var(--ifm-background-color);
     background-image: url("/static/img/rosesecurity.png");
