@@ -8,7 +8,7 @@ A former CEO of mine used to say: _“Be fast or be perfect. And since no one’
 
 Spoiler: they didn’t need it.
 
-The deeper problem? We weren’t a scrappy startup anymore—we were operating at enterprise scale with a startup mindset. The cost of speed was technical debt, fragility, and a long tail of rework. When I transitioned to a new role—back in startup mode—I heard the same “move fast” mantra. But this time, it hit differently. Because here’s the truth: _moving fast is possible without setting your future self on fire_.
+The deeper problem? We weren’t a scrappy startup anymore—we were operating at enterprise scale with a startup mindset. The cost of speed was technical debt, fragility, and a long tail of rework. When I transitioned to a new role (back in startup mode) I heard the same “move fast” mantra. But this time, it hit differently. Because here’s the truth: _moving fast is possible without setting your future self on fire_.
 
 Here’s what I’ve learned:
 
