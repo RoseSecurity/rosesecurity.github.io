@@ -8,7 +8,7 @@ A former CEO of mine used to say: _“Be fast or be perfect. And since no one’
 
 Spoiler: they didn’t need it.
 
-The deeper problem? We weren’t a scrappy startup anymore—we were operating at enterprise scale with a startup mindset. The cost of speed was technical debt, fragility, and a long tail of rework. When I transitioned to a new role—back in startup mode—I heard the same “move fast” mantra. But this time, it hit differently. Because here’s the deal: moving fast is possible without setting your future self on fire.
+The deeper problem? We weren’t a scrappy startup anymore—we were operating at enterprise scale with a startup mindset. The cost of speed was technical debt, fragility, and a long tail of rework. When I transitioned to a new role—back in startup mode—I heard the same “move fast” mantra. But this time, it hit differently. Because here’s the truth: _moving fast is possible without setting your future self on fire_.
 
 Here’s what I’ve learned:
 
@@ -16,7 +16,7 @@ Here’s what I’ve learned:
 
 **2. Build for iteration.** Forget perfect. Aim for clear next steps. Your `v1` should be designed with a roadmap in mind. Where will this evolve? What trade-offs are you making? Ship it—but know how you’ll ship it _better_.
 
-**3. Stay modular.** Design with exits. If your observability pipeline starts with a pricey SaaS, fine. But make it swappable. Keep your vendor coupling thin so you can self-host later without a rewrite.
+**3. Stay modular.** Design with exits. If your observability pipeline starts with a pricey SaaS, fine. But make it swappable. Keep your vendor coupling thin so you can self-host later without a complete rewrite.
 
 **4. Be honest about scale.** What worked for a team of 10 won’t work at 100. “Move fast” looks different when customers depend on your uptime. Match your velocity with the blast radius of your decisions.
 
