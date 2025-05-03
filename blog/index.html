@@ -3,18 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blog | RoseSecurity</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- xterm core -->
+  <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+
+  <!-- Fit addon (UMD) — note the un‑scoped package name and /lib/ path -->
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
+
+  <!-- Misc -->
   <link rel="stylesheet" href="../css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    #xterm-container{
+      display:block;          /* stop any flex from earlier CSS            */
+      margin:2rem auto;       /* centres the 80 ch‑wide box horizontally   */
+      padding:0!important;    /* kills the 2 rem inherited from .md-content*/
+      max-width:80ch;
+      height:400px;
+    }
+
+    /* optional: make rows tight like a real tty */
+    #xterm-container .xterm{
+      line-height:1!important;
+    }
+  </style>
 </head>
 <body>
   <div class="blog">
     <h1>rosesecurity@blog ><span class="cursor">|</span></h1>
 
-    <ul id="post-list" class="md-content">
-      <!-- Populated dynamically -->
-    </ul>
-
+    <ul id="post-list" class="md-content"></ul>
     <div class="md-content" id="post-container" style="display:none;"></div>
+    <div id="xterm-container" class="md-content" style="display:none;"></div>
   </div>
 
   <script>
@@ -27,33 +51,117 @@
       "2024-09-15-from-source-to-system-on-debian.md",
       "2024-11-24-terraform-proverbs.md",
       "2025-03-06-the-abstraction-debt-in-iac.md",
+      "2025-03-08-why-vim-is-superior-to-every-editor.sh",
       "2025-03-12-engineering-in-quicksand.md",
       "2025-03-26-rushing-toward-rewrite.md"
     ];
 
-    const postList = document.getElementById("post-list");
-    const postContainer = document.getElementById("post-container");
+    const postList       = document.getElementById("post-list");
+    const postContainer  = document.getElementById("post-container");
+    const xtermContainer = document.getElementById("xterm-container");
 
-    [...posts].reverse().forEach((filename) => {
-      const title = filename.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/-/g, " ").replace(".md", "");
+    // build the pseudo‑ls table
+    [...posts].reverse().forEach(filename => {
+      const isExec = filename.endsWith(".sh");
+      const title  = filename
+        .replace(/^\d{4}-\d{2}-\d{2}-/, "")
+        .replace(/-/g, " ")
+        .replace(".md", "")
+        .replace(".sh", "");
       const li = document.createElement("li");
-      li.innerHTML = `-rw-r--r--  1 root root <a href="#" data-post="${filename}" class="file-link">${title}</a>`;
+      li.innerHTML = `${isExec ? '-rwxr-xr-x' : '-rw-r--r--'}  1 root root <a href="#" data-post="${filename}" class="file-link">${title}</a>`;
       postList.appendChild(li);
     });
 
-    postList.addEventListener("click", (e) => {
-      if (e.target.tagName === "A") {
-        e.preventDefault();
-        const post = e.target.dataset.post;
-        fetch(post)
-          .then(res => res.text())
-          .then(md => {
-            postContainer.innerHTML = marked.parse(md);
-            postContainer.style.display = "block";
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          });
+    // click handler
+    postList.addEventListener("click", async e => {
+      if (e.target.tagName !== "A") return;
+      e.preventDefault();
+
+      const post = e.target.dataset.post;
+
+      if (post.endsWith(".sh")) {
+        postContainer.style.display = "none";
+        xtermContainer.style.display = "block";
+        xtermContainer.innerHTML = "";
+        await launchShell(xtermContainer);
+        return;
       }
+
+      const md = await fetch(post).then(r => r.text());
+      xtermContainer.style.display = "none";
+      postContainer.innerHTML = marked.parse(md);
+      postContainer.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
+
+    // terminal launcher
+    async function launchShell(container) {
+      container.style.display = 'block';
+      container.style.height  = '400px';
+
+      const term = new Terminal({
+        theme:      { background: '#000', foreground: '#0f0', cursor: '#0f0' },
+        fontFamily: 'JetBrains Mono, monospace',
+        fontSize:   14,
+        cursorBlink:true
+      });
+
+      const fitAddon = new FitAddon.FitAddon();
+      term.loadAddon(fitAddon);
+
+      term.open(container);
+      requestAnimationFrame(() => fitAddon.fit());
+      term.focus();
+      window.addEventListener('resize', () => fitAddon.fit());
+
+      term.write('attacker@rosesecurity:~$ ');
+      let cmd = '';
+
+      term.onData(data => {
+        const ch = data.charCodeAt(0);
+
+        // Ctrl‑C
+        if (ch === 3) {
+          term.writeln('^C');
+          container.style.display = 'none';
+          return;
+        }
+
+        // Enter
+        if (ch === 13) {
+          term.write('\r\n');
+          switch (cmd.trim()) {
+            case 'ls':
+              term.writeln('secrets.txt');
+              break;
+            case 'cat secrets.txt':
+              term.writeln('🎉  You found the secret!');
+              term.writeln('https://gist.github.com/RoseSecurity/6a3e2ac6d235e6d1204ccc5190aa50f3#essential-beliefs');
+              break;
+            case '':
+              break;
+            default:
+              term.writeln(`sh: ${cmd.trim()}: command not found`);
+          }
+          cmd = '';
+          term.write('attacker@rosesecurity:~$ ');
+          return;
+        }
+
+        // Backspace
+        if (ch === 127) {
+          if (cmd.length) {
+            term.write('\b \b');
+            cmd = cmd.slice(0, -1);
+          }
+          return;
+        }
+
+        term.write(data);
+        cmd += data;
+      });
+    }
   </script>
 </body>
 </html>
