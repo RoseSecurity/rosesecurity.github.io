@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blog | RoseSecurity</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="blog">
+    <h1>rosesecurity@blog ><span class="cursor">|</span></h1>
+
+    <ul id="post-list" class="md-content">
+      <!-- Populated dynamically -->
+    </ul>
+
+    <div class="md-content" id="post-container" style="display:none;"></div>
+  </div>
+
+  <script>
+    const posts = [
+      "2024-06-28-infrastructure-essentials-part-1.md",
+      "2024-07-25-crafting-malicious-pluggable-authentication-modules.md",
+      "2024-07-26-my-vim-note-taking-workflow.md",
+      "2024-07-29-the-future-of-terraform-visualizations.md",
+      "2024-08-28-homegrown-honeypots.md",
+      "2024-09-15-from-source-to-system-on-debian.md",
+      "2024-11-24-terraform-proverbs.md",
+      "2025-03-06-the-abstraction-debt-in-iac.md",
+      "2025-03-12-engineering-in-quicksand.md",
+      "2025-03-26-rushing-toward-rewrite.md"
+    ];
+
+    const postList = document.getElementById("post-list");
+    const postContainer = document.getElementById("post-container");
+
+    [...posts].reverse().forEach((filename) => {
+      const title = filename.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/-/g, " ").replace(".md", "");
+      const li = document.createElement("li");
+      li.innerHTML = `-rw-r--r--  1 root root <a href="#" data-post="${filename}" class="file-link">${title}</a>`;
+      postList.appendChild(li);
+    });
+
+    postList.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        e.preventDefault();
+        const post = e.target.dataset.post;
+        fetch(post)
+          .then(res => res.text())
+          .then(md => {
+            postContainer.innerHTML = marked.parse(md);
+            postContainer.style.display = "block";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+      }
+    });
+  </script>
+</body>
+</html>
