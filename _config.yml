@@ -1,0 +1,52 @@
+title: RoseSecurity Development Blog
+email: michael@rosesecurity.dev
+description: >-
+  I build tools to simplify managing infra for startups and enterprise businesses. My goal has always been to create automation that makes building secure, scalable cloud environments fast and efficient without compromising on quality. When I'm not hacking on Terraform or Go code, you can catch me conducting security research to stay ahead of evolving threats targeting companies in the cloud.
+baseurl: ""
+url: "rosesecurity.dev"
+github_username: RoseSecurity
+
+# Build settings
+theme: jekyll-dash
+plugins:
+  - jekyll-feed
+
+# jekyll-paginate
+paginate: 5
+paginate_path: "/blog/page:num/"
+
+# jekyll-tagging (optional)
+tag_permalink_style: pretty
+tag_page_layout: tag_page
+tag_page_dir: tag
+
+include: [CNAME]
+
+dash:
+  # the way how dates should be displayed
+  date_format: "%b %-d, %Y"
+
+  # the animation speed of the post scroll-in effect
+  animation_speed: 50
+
+  # wether to enable Right-to-Left support or not
+  rtl: false
+
+  # Replaces the default avatar provider (gravatar)
+  avatar_source: github
+  github_username: RoseSecurity
+  #avatar_source: local
+  #avatar_path: /assets/avatar.png
+
+  # generate social links in footer
+  # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
+  social_links:
+    - url: https://stackoverflow.com/users/22638505/rosesecurity
+      icon: stackoverflow-square
+      color: orange
+    - url: https://github.com/RoseSecurity
+      icon: github-square
+      color: purple
+
+  # wether the author box should be displayed or not
+  show_author: true
