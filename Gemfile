@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 gem "jekyll", "~> 4.4.1"
 gem 'jekyll-dash', '~> 2'
+gem "jekyll-tagging"
+gem "liquid-md5"
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
