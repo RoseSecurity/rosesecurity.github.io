@@ -1,7 +1,9 @@
 title: rosecurity@dev
 email: michael@rosesecurity.dev
 description: >-
-  Hey, I'm RoseSecurity! I build tools to simplify managing infra. If you enjoy my blogs, research, or code, feel free to reach out.
+  I build tools to simplify managing infra for startups and enterprise businesses. When I'm not hacking on Terraform or Go code, you can catch me conducting security research to stay ahead of evolving threats targeting companies in the cloud.
+
+  If you enjoy my code, blogs, or tools, feel free to reach out and connect!
 baseurl: ""
 url: "rosesecurity.dev"
 github_username: RoseSecurity
@@ -38,12 +40,15 @@ dash:
   # generate social links in footer
   # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
   social_links:
-    - url: https://stackoverflow.com/users/22638505/rosesecurity
-      icon: stackoverflow-square
-      color: orange
-    - url: https://github.com/RoseSecurity
-      icon: github-square
-      color: purple
+  - url: https://stackoverflow.com/users/22638505
+    icon: stack-overflow
+    color: orange
+  - url: https://github.com/RoseSecurity
+    icon: github-square
+    color: purple
+  - url: mailto:michael@rosesecurity.dev
+    icon: envelope
+    color: teal
 
   # author box should be displayed or not
   show_author: true
