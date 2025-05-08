@@ -1,4 +1,8 @@
-# From Source to System: Packaging and Delivering Tools to Debian-based Distros
+---
+layout: post
+title:  "From Source to System: Packaging and Delivering Tools to Debian-based Distros"
+tags: linux debian packaging go
+---
 
 ## Introduction
 
@@ -165,7 +169,7 @@ Setting up terramaid (1.12.0) ...
 
 ## Automating with GitHub Actions
 
-To automate this process, we can use GitHub Actions coupled with Goreleaser and Cloudsmith's CLI tooling to build and push artifacts to Cloudsmith. In the following workflow, we build and release the CLI tooling before pushing to Cloudsmith: 
+To automate this process, we can use GitHub Actions coupled with Goreleaser and Cloudsmith's CLI tooling to build and push artifacts to Cloudsmith. In the following workflow, we build and release the CLI tooling before pushing to Cloudsmith:
 
 ```yaml
 jobs:

@@ -1,4 +1,8 @@
-# Terraform Proverbs
+---
+layout: post
+title:  "Terraform Proverbs"
+tags: terraform code proverbs quality
+---
 
 ![terraform_logo](../static/img/terraform-logo.png)
 

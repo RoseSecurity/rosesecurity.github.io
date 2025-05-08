@@ -1,4 +1,8 @@
-# The Abstraction Debt in Infrastructure as Code
+---
+layout: post
+title:  "The Abstraction Debt in Infrastructure as Code"
+tags: terraform culture complexity abstraction
+---
 
 This article serves as the starting point for a microblog series exploring the challenges of managing Infrastructure-as-Code (IaC) at scale. The reflections here are solely my own views, based on my experiences and the lessons learned (sometimes the hard way) when building and maintaining large-scale infrastructure. This first entry lays the groundwork for the complexities, trade-offs, and regrets that come with designing IaC solutions.
 

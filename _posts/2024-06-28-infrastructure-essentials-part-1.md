@@ -1,4 +1,8 @@
-# Infrastructure Essentials Part 1: A Terraform Recipe for Success
+---
+layout: post
+title:  "Infrastructure Essentials Part 1: A Terraform Recipe for Success"
+tags: terraform code quality
+---
 
 ## From Home Cooking to Restaurant Scale
 
@@ -10,7 +14,7 @@ If you have ever worked in the food industry, you know that cleanliness is cruci
 
 ### 1. `EditorConfig`: Ensure consistency when multiple chefs are cooking medium rare steaks in the kitchen.
 
-EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. 
+EditorConfig helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
 
 > :exclamation: There's nothing more infuriating than developers using conflicting YAML formatters, resulting in commits with 1,000 changes due to a plugin adjusting the spacing by two lines
 

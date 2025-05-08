@@ -1,4 +1,8 @@
-# The Future of Terraform Visualizations
+---
+layout: post
+title:  "The Future of Terraform Visualizations"
+tags: terraform mermaid javascript go diagrams
+---
 
 When I set out to write Terramaid, a tool that transforms Terraform configurations into visualizations using Mermaid diagrams, I didn't fully grasp the niche problem I aimed to tackle or the obstacles ahead. My goals were to improve my Go skills, contribute to the cloud tooling ecosystem, and have fun. The weekend after releasing the tool, I was amazed by the overwhelming support, inquiries, and feature requests. Although I have contributed various tools and knowledge bases to the cybersecurity community over the years, the support for Terramaid was unmatched. I began to think I was really onto something. However, I have always been more of an engineer than a visionary. To paraphrase Linus Torvalds, I focus on fixing the potholes in front of me rather than dreaming of going to the moon. Developing Terramaid has forced me to step back, look at the bigger picture of how we can drive the next generation of Terraform visualizations, and start building.
 

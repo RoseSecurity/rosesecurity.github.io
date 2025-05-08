@@ -1,4 +1,8 @@
-# My Neovim Note-taking Workflow
+---
+layout: post
+title:  "My Neovim Note-taking Workflow"
+tags: neovim vim editor ide
+---
 
 ## Past Strategies
 

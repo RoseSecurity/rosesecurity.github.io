@@ -1,4 +1,8 @@
-# Rushing Toward Rewrite
+---
+layout: post
+title:  "Rushing Toward Rewrite"
+tags: terraform culture technicaldebt quality code
+---
 
 This is part three of my microblog series exploring the subtle dysfunctions that plague engineering organizations. After discussing over-abstraction as a liability and unpacking how excessive toil kills engineering teams, this post tackles a nuanced threat: when “moving fast” becomes a cultural shortcut for cutting corners.
 

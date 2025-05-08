@@ -1,4 +1,8 @@
-# Homegrown Honeypots: Simulating a Water Control System in my Home Office
+---
+layout: post
+title:  "Homegrown Honeypots: Simulating a Water Control System in my Home Office"
+tags: hacking cybersecurity blue-teaming canary
+---
 
 ## Background
 

@@ -1,4 +1,8 @@
-# Engineering in Quicksand
+---
+layout: post
+title:  "Engineering in Quicksand"
+tags: culture technicaldebt toil sre
+---
 
 Welcome to part two of my microblog series on the overlooked killers of engineering teams—the problems that quietly erode productivity in the DevOps community without getting much attention. I previously covered over-abstraction as a liability, showing how excessive layers of abstraction introduce technical debt.
 
