@@ -103,7 +103,7 @@ def record_request(data):
 
 The final product looks like this!
 
-![aqueduct video](../static/img/aqueduct.gif)
+![aqueduct video](/assets/img/aqueduct.gif)
 
 To make the exposed server easily findable, I decided to leverage Shodan, a search engine for Internet-connected devices. By submitting a scan request to Shodan, I ensured that my honeypot would be indexed and visible to anyone using the service.
 

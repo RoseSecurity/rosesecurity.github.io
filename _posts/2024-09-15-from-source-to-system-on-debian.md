@@ -57,7 +57,7 @@ resource "cloudsmith_license_policy" "terramaid_policy" {
 
 This configuration creates a package repository and adds a Cloudsmith license policy to ensure that software is used, modified, and distributed in compliance with licensing requirements. I typically utilize Apache 2.0 licensing for my projects, as I appreciate the permissive nature and compatibility with other open-source license. Nevertheless, I digress; the created repository looks like the following:
 
-![Cloudsmith Terramaid Repository](../static/img/cloudsmith-terramaid-repository.png)
+![Cloudsmith Terramaid Repository](/assets/img/cloudsmith-terramaid-repository.png)
 
 ## Pushing Packages
 
