@@ -4,7 +4,7 @@ title:  "Terraform Proverbs"
 tags: terraform code proverbs quality
 ---
 
-![terraform_logo](../static/img/terraform-logo.png)
+![terraform_logo](/assets/img/terraform-logo.png)
 
 ## _Simple, Clear, Maintainable_
 
