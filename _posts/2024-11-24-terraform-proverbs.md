@@ -22,8 +22,6 @@ Every apply should be predictable.
 
 Outputs are for sharing.
 
-Tags are free; use them liberally.
-
 Understanding count versus for_each is essential.
 
 Descriptions are for users.
