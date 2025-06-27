@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /api/v1/terraform-proverbs.json
+---
+
+{{ site.data.terraform_proverbs | jsonify }}
