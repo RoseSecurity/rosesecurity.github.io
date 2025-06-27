@@ -1,38 +1,82 @@
-{
-  "code-clarity": [
-    { "id": 1, "text": "Clear is better than clever." },
-    { "id": 8, "text": "Descriptions are for users." },
-    {
-      "id": 16,
-      "text": "Using locals makes code descriptive and maintainable."
-    }
-  ],
-
-  "state-and-drift": [
-    { "id": 4, "text": "State is a liability; manage it wisely." },
-    { "id": 5, "text": "Every apply should be predictable." },
-    { "id": 10, "text": "Null is not the same as nothing." },
-    { "id": 12, "text": "Terraform is declarative; trust it to converge." }
-  ],
-
-  "modules-and-reuse": [
-    { "id": 3, "text": "Modules should be reusable, not rigid." },
-    { "id": 7, "text": "Understanding count versus for_each is essential." },
-    { "id": 11, "text": "Prefer a single object over many related variables." }
-  ],
-
-  "workflow-and-versioning": [
-    { "id": 2, "text": "Version everything." },
-    { "id": 14, "text": "Upgrade deliberately, not impulsively." }
-  ],
-
-  "interface-boundaries": [
-    { "id": 6, "text": "Outputs are for sharing." },
-    {
-      "id": 9,
-      "text": "Use positive variable names to avoid double negatives."
-    },
-    { "id": 13, "text": "Never output secrets." },
-    { "id": 15, "text": "Name with underscores, not dashes." }
-  ]
-}
+[
+  {
+    "id": 1,
+    "category": "code-clarity",
+    "text": "Clear is better than clever."
+  },
+  {
+    "id": 2,
+    "category": "workflow-and-versioning",
+    "text": "Version everything."
+  },
+  {
+    "id": 3,
+    "category": "modules-and-reuse",
+    "text": "Modules should be reusable, not rigid."
+  },
+  {
+    "id": 4,
+    "category": "state-and-drift",
+    "text": "State is a liability; manage it wisely."
+  },
+  {
+    "id": 5,
+    "category": "state-and-drift",
+    "text": "Every apply should be predictable."
+  },
+  {
+    "id": 6,
+    "category": "interface-boundaries",
+    "text": "Outputs are for sharing."
+  },
+  {
+    "id": 7,
+    "category": "modules-and-reuse",
+    "text": "Understanding count versus for_each is essential."
+  },
+  {
+    "id": 8,
+    "category": "code-clarity",
+    "text": "Descriptions are for users."
+  },
+  {
+    "id": 9,
+    "category": "interface-boundaries",
+    "text": "Use positive variable names to avoid double negatives."
+  },
+  {
+    "id": 10,
+    "category": "state-and-drift",
+    "text": "Null is not the same as nothing."
+  },
+  {
+    "id": 11,
+    "category": "modules-and-reuse",
+    "text": "Prefer a single object over many related variables."
+  },
+  {
+    "id": 12,
+    "category": "state-and-drift",
+    "text": "Terraform is declarative; trust it to converge."
+  },
+  {
+    "id": 13,
+    "category": "interface-boundaries",
+    "text": "Never output secrets."
+  },
+  {
+    "id": 14,
+    "category": "workflow-and-versioning",
+    "text": "Upgrade deliberately, not impulsively."
+  },
+  {
+    "id": 15,
+    "category": "interface-boundaries",
+    "text": "Name with underscores, not dashes."
+  },
+  {
+    "id": 16,
+    "category": "code-clarity",
+    "text": "Using locals makes code descriptive and maintainable."
+  }
+]
