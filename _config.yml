@@ -1,9 +1,10 @@
 title: rosecurity@dev
 email: michael@rosesecurity.dev
 description: >-
-  I build tools to simplify managing infra for startups and enterprise businesses. When I'm not hacking on Terraform or Go code, you can catch me conducting security research to stay ahead of evolving threats targeting companies in the cloud.
+  I build tools that make managing infrastructure easier to run and safer to scale. Day-to-day I’m in the Terraform and Go trenches, maintaining widely used modules, authoring providers, and contributing to Terraform Best Practices and Terraform Proverbs. Beyond infrastructure, I architect data engineering pipelines and specialize in building scalable ML/AI platforms for companies in the cloud. I live in the CLI, am the creator of Red-Teaming TTPs, and am a MITRE, OWASP, and Debian contributor!
 
-  If you enjoy my code, blogs, or tools, feel free to reach out and connect!
+  If you enjoy my community code, blogs, or tools, feel free to reach out and connect!
+
 baseurl: ""
 url: "https://rosesecurity.dev"
 github_username: RoseSecurity
