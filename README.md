@@ -1,4 +1,4 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=IBM+Plex+Mono&weight=500&size=30&duration=6000&pause=1000&color=F7F7F7&width=435&lines=About+Me%3A)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=IBM+Plex+Mono&weight=500&size=30&duration=6000&pause=1000&color=FFFFFF&width=435&lines=About+Me%3A)](https://git.io/typing-svg)
 
 > [!IMPORTANT]
 > Hey, I'm **RoseSecurity**!
@@ -7,3 +7,21 @@
 >
 > If you enjoy my [community code](https://github.com/search?q=author%3Arosesecurity%20type%3Apr%20state%3Aclosed%20is%3Amerged%20-user%3Arosesecurity&type=pullrequests), [blogs](https://rosesecurity.dev/), or [tools](https://github.com/RoseSecurity?tab=repositories), feel free to reach out and connect!
 
+---
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=IBM+Plex+Mono&weight=500&size=30&duration=6000&pause=1000&color=FFFFFF&width=435&lines=Terraform+Proverbs%3A)](https://git.io/typing-svg)
+
+```hcl
+data "http" "terraform_proverbs" {
+  url = "https://rosesecurity.dev/api/v1/terraform-proverbs.json"
+}
+
+locals {
+  proverbs_response = jsondecode(data.http.terraform_proverbs.response_body)
+  proverbs          = [for proverb in local.proverbs_response : proverb.text]
+}
+
+output "proverbs" {
+  value = local.proverbs
+}
+```
