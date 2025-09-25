@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Testing IaC with the TerraStack"
+title: "Testing IaC with the Localstack and Terratest"
 tags: terraform quality testing iac
 ---
 
@@ -12,24 +12,51 @@ I've seen this scenario _a lot_, so I took a crack at a solution. Testing Infras
 
 ## Building the TerraStack
 
-I built yet another Go package to eliminate some pains of testing Infrastructure as Code (IaC). When you don't have a dedicated test account, can't predict how your configurations will hold up when they actually hit the API, and want to have a consolidated way to test locally and in CI/CD pipelines, this helper library can help. The [go-localstack](https://github.com/RoseSecurity/go-localstack) package combines the power of LocalStack (a fully functional local AWS cloud stack) with Terratest's battle-tested testing framework. I jokingly call this duo the TerraStack (please don't sue me, company that _builds geospatial products that enable smarter land asset management and development_).
+I built yet another Go package to eliminate some pains of testing Infrastructure as Code (IaC). When you don't have a dedicated test account, can't predict how your configurations will hold up when they actually hit the API, and want to have a consolidated way to test locally and in CI/CD pipelines, this helper library can help. The [go-localstack](https://github.com/The-Infra-Company/go-localstack) package combines the power of LocalStack (a fully functional local AWS cloud stack) with Terratest's battle-tested testing framework. I jokingly call this duo the TerraStack (please don't sue me, company that _builds geospatial products that enable smarter land asset management and development_).
 
 Any way, LocalStack spins up a containerized environment that mimics AWS services locally. No real resources, no surprise bills, no cleanup headaches. Your Terraform code thinks it's talking to real AWS, but it's actually hitting LocalStack's mock services running in Docker. This approach solves several pain points at once like fast feedback loops with tests running in seconds rather than minutes, CI/CD friendly integration since everything runs in containers, real API interactions unlike unit tests with mocks, and automatic cleanup when the container dies.
 
 ## Setting Up Your Test Environment
 
-Let's walk through a basic example that tests an S3 bucket configuration. You'll need a basic Terraform configuration and a Go test file to get started. Here's a simple configuration that creates an S3 bucket with some tags:
+Let's walk through a basic example that tests a DynamoDB configuration. You'll need a basic Terraform configuration and a Go test file to get started. Here's a simple configuration that creates an DynamoDB table:
 
 **test.tf:**
 
 ```hcl
-# An example Terraform configuration (stolen from provider docs) for provisioning an S3 bucket with Localstack
-resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-test-bucket"
+# An example Terraform configuration for provisioning a DynamoDB table
+resource "aws_dynamodb_table" "users" {
+  name         = "users"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "user_id"
+  range_key    = "email"
 
-  tags = {
-    Name        = "My bucket"
-    Environment = "Dev"
+  attribute {
+    name = "user_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "email"
+    type = "S"
+  }
+
+  attribute {
+    name = "created_at"
+    type = "S"
+  }
+
+  # Global Secondary Index for querying by email
+  global_secondary_index {
+    name            = "email-index"
+    hash_key        = "email"
+    projection_type = "ALL"
+  }
+
+  # Global Secondary Index for querying by creation date
+  global_secondary_index {
+    name            = "created-at-index"
+    hash_key        = "created_at"
+    projection_type = "ALL"
   }
 }
 ```
@@ -48,10 +75,8 @@ provider "aws" {
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
 
-
   endpoints {
-    s3                       = "http://s3.localhost.localstack.cloud:4566"
-    sts                      = "http://localhost:4566"
+    dynamodb = "http://localhost:4566"
   }
 
   default_tags {
@@ -69,33 +94,27 @@ Alternatively, you can skip the provider configuration entirely by using the `tf
 
 The Go test is where `go-localstack` shines by abstracting away the container management complexity. Here's a basic test that demonstrates the core functionality:
 
-**s3_bucket_test.go:**
+**dynamodb_bucket_test.go:**
 
 ```go
-package main
+package test
 
 import (
 	"context"
 	"testing"
 
-	"github.com/RoseSecurity/go-localstack/localstack"
-	"github.com/docker/docker/client"
+	"github.com/The-Infra-Company/go-localstack"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestS3BucketWithLocalStack(t *testing.T) {
+func TestDynamoDBWithLocalStack(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
 
-	// Create a Docker client
-	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
-	assert.NoError(t, err)
-	defer func() { _ = cli.Close() }()
-
 	// Start LocalStack container
-	runner, err := localstack.NewRunner(cli)
+	runner, err := localstack.NewRunner(nil)
 	assert.NoError(t, err)
 
 	containerID, err := runner.Start(ctx)
