@@ -20,7 +20,7 @@ This is the scale gap, and it's where the KISS vs DRY debate stops being theoret
 
 When teams hit the scale gap, the instinct is to eliminate repetition. DRY (Don't Repeat Yourself) is gospel in software engineering, so infrastructure engineers did what they do best and built tools to solve the problem.
 
-Terragrunt emerged to manage backend configurations and reduce repetition across environments. Terraspace, Terrateam, and other abstraction frameworks followed, promising sophisticated hierarchical inheritance models and dynamic configuration generation. Module libraries grew into complex ecosystems. Teams adopted these patterns because they represented "best practices," not necessarily because they had the specific problems these tools were designed to solve.
+Terragrunt emerged to manage backend configurations and reduce repetition across environments. Terraspace and other abstraction frameworks followed, promising sophisticated hierarchical inheritance models and dynamic configuration generation. Module libraries grew into complex ecosystems. Teams adopted these patterns because they represented "best practices," not necessarily because they had the specific problems these tools were designed to solve.
 
 The promise was compelling: write your infrastructure once, reuse it everywhere, maintain it in one place, and scale effortlessly.
 
