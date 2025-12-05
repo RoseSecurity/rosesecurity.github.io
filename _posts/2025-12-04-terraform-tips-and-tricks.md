@@ -4,7 +4,7 @@ title:  "Terraform Tips from the IaC Trenches"
 tags: terraform iac infrastructure best-practices devops
 ---
 
-Infrastructure as Code doesn't have to be crazy complicated. Over years of writing open-source Terraform modules, I've picked up a few syntax tricks that make code safer, cleaner, and easier to maintain. These aren't revolutionary, but they're simple patterns that prevent common mistakes and make your infrastructure more resilient.
+After a few years of writing open-source Terraform modules, I've picked up a few syntax tricks that make code safer, cleaner, and easier to maintain. These aren't revolutionary, but they're simple patterns that prevent common mistakes and make the infrastructure more resilient. Based on the configurations I've seen in the wild, these techniques seem to be underutilized.
 
 ---
 
@@ -14,7 +14,7 @@ When you conditionally create resources with `count`, don't reach for `[0]` — 
 
 ### The Problem
 
-It's common to use `count` with a boolean to conditionally create resources:
+It's common to use `count` with a boolean to conditionally create resources (especially in open-source modules that accommodate a lot of different configuration settings):
 
 ```hcl
 data "aws_route53_zone" "this" {
@@ -30,7 +30,7 @@ resource "aws_route53_record" "this" {
 }
 ```
 
-This looks fine and might even work in your dev environment where `var.create_dns = true`. But the moment that variable is `false` in another environment, you get:
+This looks fine and might even work in `dev` environments where `var.create_dns = true`. But the moment that variable is `false` in another environment, you get:
 
 ```
 Error: Invalid index
@@ -39,7 +39,7 @@ The given key does not identify an element in this collection value:
 the collection value is an empty tuple.
 ```
 
-The issue? **This fails at runtime, not plan time.** Your code works when the resource exists and breaks when it doesn't.
+The issue? **This fails at runtime, not plan time.** The code works when the resource exists and breaks when it doesn't.
 
 ### The Solution
 
@@ -52,7 +52,7 @@ data "aws_route53_zone" "this" {
 }
 
 resource "aws_route53_record" "this" {
-  zone_id = one(data.aws_route53_zone.this[*].zone_id)  # ✅ Safe
+  zone_id = one(data.aws_route53_zone.this[*].zone_id)  # ✅ Safe(r)
   name    = "blog.rosesecurity.dev"
   type    = "A"
   # ...
@@ -67,7 +67,7 @@ The `one()` function (available in Terraform v0.15+) is designed for this exact 
 
 **When you use `[0]`, you're assuming the resource exists. When you use `one()`, you're validating it exists.**
 
-Bonus: `one()` also works with sets, which don't support index notation at all. Using `one()` makes your code more versatile and future-proof.
+Bonus: `one()` also works with sets, which don't support index notation at all. Using `one()` makes the code more versatile and future-proof.
 
 ---
 
@@ -257,6 +257,56 @@ Results in: `search.prod.rosesecurity.dev`
 **Let users configure only what matters, default the rest.**
 
 Group related variables into objects, use `optional()` for flexibility, document with indented HEREDOCs, and combine with `coalesce()` for intelligent defaults. Your module users will thank you.
+
+---
+
+## Avoid Double Negatives in Variable Names
+
+Boolean variables with negative names add unnecessary mental overhead. Positive variable names make conditional logic clearer and reduce the chance of configuration mistakes.
+
+### The Problem
+
+```hcl
+# ❌ Negative variable name
+variable "disable_encryption" {
+  description = "Disable encryption"
+  type        = bool
+  default     = false
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+  count  = var.disable_encryption ? 0 : 1
+  bucket = aws_s3_bucket.this.id
+  # ...
+}
+```
+
+The `count` line requires mental translation: "If `disable_encryption` is `false`, then `count` is `1`, so encryption is enabled." That's a double negative in what should be straightforward logic.
+
+This pattern creates real problems during code review. A change from `default = false` to `default = true` looks like it's "enabling" something when it's actually doing the opposite.
+
+### The Solution
+
+```hcl
+# ✅ Positive variable name
+variable "encryption_enabled" {
+  description = "Enable encryption"
+  type        = bool
+  default     = true
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+  count  = var.encryption_enabled ? 1 : 0
+  bucket = aws_s3_bucket.this.id
+  # ...
+}
+```
+
+The logic now reads directly: "If `encryption_enabled` is `true`, create the encryption config."
+
+Positive naming also makes security choices more explicit. Setting `encryption_enabled = false` is visually clearer than `disable_encryption = true`, even though they're functionally equivalent.
+
+**Name variables for what they enable, not what they prevent.**
 
 ---
 
