@@ -15,7 +15,7 @@ Infrastructure drift happens when your cloud resources diverge from your Terrafo
 
 ## The Simplicity of GitHub Actions
 
-I love GitHub Actions. They offer a native, cost-effective platform for automated drift detection. By leveraging Terraform's built-in exit codes and GitHub's issue tracking, we can build a robust drift detection system using only native features with no external services required. This approach works well for small-to-medium deployments. Larger-scale production use requires additional considerations like multi-account support, sensitive data sanitization, and automated remediation (I'll talk above that below).
+I love GitHub Actions. They offer a native, cost-effective platform for automated drift detection. By leveraging Terraform's built-in exit codes and GitHub's issue tracking, we can build a robust drift detection system using only native features with no external services required. This approach works well for small-to-medium deployments. Larger-scale production use requires additional considerations like multi-account support, sensitive data sanitization, and automated remediation (I'll talk about that below).
 
 ## The Workflow
 
