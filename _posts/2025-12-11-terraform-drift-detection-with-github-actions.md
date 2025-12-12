@@ -158,7 +158,7 @@ When drift is detected (exit code 2), this step uses the GitHub API via `actions
               planOutput = 'Could not read plan output';
             }
 
-            const title = `Terraform Drift Detected in ${context.repo.repo}: ${{ matrix.tf_dir }}`;
+            const title = `Terraform Drift Detected: ${{ matrix.tf_dir }}`;
             const driftBody = `## Terraform Drift Detected
             **Directory:** \`${{ matrix.tf_dir }}\`
             **Detection Time:** ${new Date().toISOString()}
