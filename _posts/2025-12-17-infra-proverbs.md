@@ -23,3 +23,11 @@ An untested backup is no backup at all.
 Roll out in waves, not floods.
 
 Hope is not a strategy.
+
+Be careful what you measure, because that's exactly what you'll get.
+
+The best postmortem is the one you act on.
+
+Tribal knowledge dies with the tribe.
+
+The best infrastructure is the kind you can forget about.
