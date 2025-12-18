@@ -21,3 +21,5 @@ Today's shortcut is tomorrow's incident.
 An untested backup is no backup at all.
 
 Roll out in waves, not floods.
+
+Hope is not a strategy.
