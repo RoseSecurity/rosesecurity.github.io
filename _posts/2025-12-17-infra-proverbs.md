@@ -31,3 +31,8 @@ The best postmortem is the one you act on.
 Tribal knowledge dies with the tribe.
 
 The best infrastructure is the kind you can forget about.
+
+Never allow the same root cause twice.
+
+Be wary of easy solutions to complex problems.
+
