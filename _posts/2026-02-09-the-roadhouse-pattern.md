@@ -91,4 +91,6 @@ Look at `newRequest` again. After the two validation calls, the rest of the func
 
 Swayze would approve.
 
+---
+
 If you hated this blog, feel free to drop some hateful issues and PRs on [my GitHub](https://github.com/RoseSecurity).
