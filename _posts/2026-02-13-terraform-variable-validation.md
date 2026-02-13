@@ -4,6 +4,10 @@ title:  "Terraform Variable Validation Doesn't Work the Way You Think"
 tags: terraform infra code quality
 ---
 
+**Update:** As of [Terraform v1.12](https://github.com/hashicorp/terraform/releases/tag/v1.12.0), logical binary operators now short-circuit. The issue described below has been fixed. If you're on v1.12+, you can use `||` and `&&` in validation conditions without worrying about both sides being evaluated. For those still on older versions, the `try()` workaround remains relevant.
+
+---
+
 I've been seeing a lot of additional bugs in open source Terraform modules lately. Most of them seem to be coming from a misunderstanding of how Terraform variable validation works. In this quick blog, I want to address the misunderstanding and show some proper use cases for variable validation. My personal philosophy is that it should be used for simple use cases, but for those who want to get more complex with it, use cross-variable validation introduced in `1.9.2` (which I pioneered for sadly), and get wild with their/Claude's validation conditions, this blog is for you.
 
 ## Using Validation
@@ -45,9 +49,9 @@ variable "event_action" {
 
 A downside to this approach is that if the API and provider support additional conditions in the future, your downstream code needs to be updated to match what is supported. This is the fun part of maintaining open source Terraform modules...
 
-## The Problem
+## The Problem (pre-v1.12)
 
-Terraform validation blocks don't short-circuit boolean operations. When you write a condition like `a || b`, Terraform evaluates *both* sides before applying the logical `||` operator. This is different from most programming languages where `||` short-circuits (if `a` is true, `b` is never evaluated).
+Prior to Terraform v1.12, validation blocks didn't short-circuit boolean operations. When you wrote a condition like `a || b`, Terraform evaluated *both* sides before applying the logical `||` operator. This was different from most programming languages where `||` short-circuits (if `a` is true, `b` is never evaluated).
 
 Here's a real example I ran into recently:
 
@@ -88,7 +92,7 @@ Terraform evaluated `keys(var.compromised_credentials_risk_configuration.actions
 
 ## The Solution (why simple is better)
 
-The fix is to use `try()`:
+On Terraform v1.12+, the original validation condition works as expected since short-circuit evaluation is now supported. For older versions, the fix is to use `try()`:
 
 ```hcl
 variable "compromised_credentials_risk_configuration" {
@@ -108,7 +112,7 @@ variable "compromised_credentials_risk_configuration" {
 }
 ```
 
-The `try()` function evaluates an expression and returns a fallback value if it fails. When `actions` is null, accessing `.event_action` throws an error, `try()` catches it and returns `false`, and then the `actions == null` condition (which is `true`) makes the whole validation pass.
+The `try()` function evaluates an expression and returns a fallback value if it fails. When `actions` is null, accessing `.event_action` throws an error, `try()` catches it and returns `false`, and then the `actions == null` condition (which is `true`) makes the whole validation pass. This pattern remains useful as a defensive measure, especially if your module needs to support older Terraform versions.
 
 A few things I've learned:
 
@@ -116,7 +120,7 @@ A few things I've learned:
 
 2. **Remember that providers validate too.** Many validations you might write are already handled by the provider. Don't duplicate work unless you have a specific reason (like better error messages or stricter constraints).
 
-Variable validation is a powerful feature, but it's easy to write validations that look correct but fail in unexpected ways.
+Variable validation is a powerful feature. While the short-circuit issue has been resolved in v1.12, these principles around keeping validations simple and understanding what the provider already handles remain valuable.
 
 ---
 
