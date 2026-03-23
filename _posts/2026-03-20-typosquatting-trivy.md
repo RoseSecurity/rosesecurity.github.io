@@ -14,15 +14,15 @@ Within fifty minutes of registration, the attacker had Let's Encrypt certificate
 
 Two days of infrastructure prep. Then the real work began.
 
-## A Version That Never Existed
+## A Legitimate Version, Silently Hijacked
 
-The official `trivy-action` release history goes `v0.34.0`, then `v0.35.0`. There was never a `0.34.2`. But on March 19, a tag with that exact name appeared on the `aquasecurity/trivy-action` repository.
+`trivy-action` `0.34.2` was a real release. It shipped in late February with YAML trivyignore support and a Trivy version bump. Organizations adopted it through normal Renovate and Dependabot PRs weeks before anything went wrong.
 
-According to [Wiz's research](https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack), the group behind this (calling themselves "TeamPCP") had compromised the `aqua-bot` service account through residual access from an earlier incident in March 2026 that was never fully contained. With that access, they didn't just create one fake tag. They force-pushed 75 of 76 `trivy-action` tags and 7 `setup-trivy` tags to malicious commits. The `0.34.2` tag was the one that caused the most damage in the wild because Renovate and Dependabot picked it up as a "new version" and automatically opened PRs to adopt it across organizations that had never heard of TeamPCP.
+According to [Wiz's research](https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack), the group behind this (calling themselves "TeamPCP") had compromised the `aqua-bot` service account through residual access from an earlier incident in March 2026 that was never fully contained. With that access, they didn't just tamper with one tag. They force-pushed 75 of 76 `trivy-action` tags and 7 `setup-trivy` tags to malicious commits. The `0.34.2` tag caused the most damage in the wild because so many organizations had already adopted it as a legitimate upgrade.
 
-At first, the `0.34.2` tag pointed to a clean commit. Then, around 17:43 UTC, the attacker moved it. The tag now resolved to a different commit (`ddb9da44`) that looked nearly identical to the original. Same author name, same timestamp, same commit message. The attacker had spoofed the commit metadata to impersonate legitimate Aqua developers (Wiz identified the handles `rauchg` and `DmitriyLewen`). The only differences were the parent chain (it branched off `v0.35.0` instead of sitting on the main branch) and the contents of `entrypoint.sh`, which now had 105 lines of malicious code prepended to the legitimate Trivy logic.
+On March 19 around 17:43 UTC, the attacker moved the `0.34.2` tag. It had pointed to a clean commit; now it resolved to a different one (`ddb9da44`) that looked nearly identical to the original. Same author name, same timestamp, same commit message. The attacker had spoofed the commit metadata to impersonate legitimate Aqua developers (Wiz identified the handles `rauchg` and `DmitriyLewen`). The only differences were the parent chain (it branched off `v0.35.0` instead of sitting on the main branch) and the contents of `entrypoint.sh`, which now had 105 lines of malicious code prepended to the legitimate Trivy logic.
 
-This is the fundamental problem with Git tags: they're just pointers. You can move them whenever you want, and anyone pulling that tag gets whatever it points to now, not what it pointed to yesterday. No human looked at the version number and thought _"wait, that doesn't exist in the changelog."_ The bots just did what bots do.
+This is the fundamental problem with Git tags: they're just pointers. You can move them whenever you want, and anyone pulling that tag gets whatever it points to now, not what it pointed to yesterday. Every organization that had already pinned to `0.34.2` silently started pulling the attacker's code with no change on their end.
 
 ## Walking Through the Malicious Code
 
