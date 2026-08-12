@@ -64,7 +64,11 @@ deny_local_exec_provisioner contains issue if {
 
 The policy identifies Terraform resources that contain provisioner blocks, checks whether the provisioner type is `local-exec`, and generates a linting error when one is found. The result is immediate feedback during development, rather than discovering the issue during code review or after it reaches a deployment pipeline. The cool part is that this same pattern can be used for enforcing required tags, mandating encryption settings, and whatever else your heart desires.
 
+---
+
 ![tflint_lsp](/assets/img/tflint-lsp.png)
+
+---
 
 When run from the CLI, the output looks like:
 
