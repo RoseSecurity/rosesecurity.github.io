@@ -223,7 +223,9 @@ AWS Backup automatically discovers the resource and enrolls it in the correspond
 
 ## Conclusion
 
-I really like this approach because it balances governance with flexibility. Platform teams can define backup standards once and apply them across the organization, while workload teams can opt resources into the appropriate backup tier with a simple tag. Managing backups through AWS Organizations also fits naturally into an infrastructure-as-code approach. Backup schedules, retention policies, and organizational standards become version controlled, repeatable, and auditable. Ultimately, we want backups to become easy. When we do _good_ self-service, teams don't need to understand the details of AWS Backup or build backup plans for every workload. They simply tag their resources and inherit the organization's standards.
+I really like this approach because it's easy and scalable. Platform teams can define backup standards once and apply them across the organization (you might want to test them out first though), while workload teams can opt resources into the appropriate backup tier with a simple tag. Managing backups through AWS Organizations also fits naturally into an infrastructure-as-code approach. Backup schedules, retention policies, and organizational standards become version controlled, repeatable, and auditable.
+
+Ultimately, we want backups to become easy. When we do _good_ self-service, teams don't need to understand the details of AWS Backup or build backup plans for every workload. They simply tag their resources and inherit the organization's standards.
 
 ---
 
